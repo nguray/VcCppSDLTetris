@@ -837,7 +837,6 @@ int main(int argc, char *argv[])
             Uint32 startTimeH = startTimeV;
             Uint32 startTimeR = startTimeV;
 
-
             //Main loop flag
             bool quit = false;
 
