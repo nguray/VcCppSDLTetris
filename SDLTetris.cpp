@@ -1131,10 +1131,13 @@ int main(int argc, char *argv[])
             if (tetrisMusic!=NULL){
                 Mix_FreeMusic(tetrisMusic);
             }
+
             
             if (succesSound){
                 Mix_FreeChunk(succesSound);
             }
+
+            Mix_CloseAudio();
         }
 
         //-- Renderer
