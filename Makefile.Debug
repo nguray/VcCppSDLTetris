@@ -21,7 +21,7 @@ INSTALL_DIR     = xcopy /s /q /y /i
 
 PROGRAM = SDLTetris.exe
 
-SOURCES       = SDLTetris.cpp Tetromino.cpp Vector2i.cpp
+SOURCES       = SDLTetris.cpp Tetromino.cpp
 
 OBJ = $(SOURCES:.cpp=.o)
 OBJS_DEBUG = $(addprefix debug/,$(OBJ))

@@ -1,8 +1,14 @@
 #pragma once
 #include <SDL.h>
 #include <array>
-#include "Vector2i.h"
+
 using namespace std;
+
+typedef struct Vector2i
+{
+    int x;
+    int y;
+} Vector2i;
 
 class Tetromino{
 public:
