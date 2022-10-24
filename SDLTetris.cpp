@@ -47,6 +47,7 @@ int         horizontalStartColumn = 0;
 int         curScore = 0;
 int         idHighScore = -1;
 int         iHighScoreColor = 0;
+
 std::string playerName("");
 HighScore   highScores[] = {
                 {"XXXXXX",0},
@@ -60,6 +61,7 @@ HighScore   highScores[] = {
                 {"XXXXXX",0},
                 {"XXXXXX",0}
             };
+
 int         tetrisBag[] = {1,2,3,4,5,6,7,1,2,3,4,5,6,7};
 int         idTetrisBag = 14;
 std::map<int,char>  keyMaps = {
@@ -109,8 +111,6 @@ std::map<int,char>  keyMaps = {
                     {SDLK_KP_9,'9'}
                     };
 
-
-
 bool        (*ProcessEvent) (SDL_Event &e);
 
 bool        (*isOutLimit) (Tetromino *tetro);
@@ -143,53 +143,81 @@ bool IsOutBottomLimit(Tetromino *tetro){
 
 bool HitGround(Tetromino *tetro, int *board){
     int x,y;
-    int ix,iy;
     //-----------------------------------------
+
     for (auto p : tetro->m_v){
+
+        auto hit = [board] (int x,int y)
+        {
+            int ix = (int)(x/CELL_SIZE);
+            int iy = (int)(y/CELL_SIZE);
+            if ((ix>=0)&&(ix<NB_COLUMNS)&&(iy>=0)&&(iy<NB_ROWS)){
+                if (board[iy*NB_COLUMNS+ix]!=0){
+                    return true;
+                }
+            }
+            return false;
+        };
 
         //-- Top Left Corner
         x = p.x*CELL_SIZE + tetro->m_x + 1;
         y = p.y*CELL_SIZE + tetro->m_y + 1;
-        ix = (int)(x/CELL_SIZE);
-        iy = (int)(y/CELL_SIZE);
-        if ((ix>=0)&&(ix<NB_COLUMNS)&&(iy>=0)&&(iy<NB_ROWS)){
-            if (board[iy*NB_COLUMNS+ix]!=0){
-                return true;
-            }
+        if (hit(x,y)){
+            return true;
         }
+
+        // ix = (int)(x/CELL_SIZE);
+        // iy = (int)(y/CELL_SIZE);
+        // if ((ix>=0)&&(ix<NB_COLUMNS)&&(iy>=0)&&(iy<NB_ROWS)){
+        //     if (board[iy*NB_COLUMNS+ix]!=0){
+        //         return true;
+        //     }
+        // }
 
         //-- Top Right Corner
         x = p.x*CELL_SIZE + CELL_SIZE - 1 + tetro->m_x;
         y = p.y*CELL_SIZE + tetro->m_y + 1;
-        ix = (int)(x/CELL_SIZE);
-        iy = (int)(y/CELL_SIZE);
-        if ((ix>=0)&&(ix<NB_COLUMNS)&&(iy>=0)&&(iy<NB_ROWS)){
-            if (board[iy*NB_COLUMNS+ix]!=0){
-                return true;
-            }
+        if (hit(x,y)){
+            return true;
         }
+
+        // ix = (int)(x/CELL_SIZE);
+        // iy = (int)(y/CELL_SIZE);
+        // if ((ix>=0)&&(ix<NB_COLUMNS)&&(iy>=0)&&(iy<NB_ROWS)){
+        //     if (board[iy*NB_COLUMNS+ix]!=0){
+        //         return true;
+        //     }
+        // }
 
         //-- Bottom Right Corner
         x = p.x*CELL_SIZE + CELL_SIZE - 1 + tetro->m_x;
         y = p.y*CELL_SIZE + CELL_SIZE - 1 + tetro->m_y;
-        ix = (int)(x/CELL_SIZE);
-        iy = (int)(y/CELL_SIZE);
-        if ((ix>=0)&&(ix<NB_COLUMNS)&&(iy>=0)&&(iy<NB_ROWS)){
-            if (board[iy*NB_COLUMNS+ix]!=0){
-                return true;
-            }
+        if (hit(x,y)){
+            return true;
         }
+
+        // ix = (int)(x/CELL_SIZE);
+        // iy = (int)(y/CELL_SIZE);
+        // if ((ix>=0)&&(ix<NB_COLUMNS)&&(iy>=0)&&(iy<NB_ROWS)){
+        //     if (board[iy*NB_COLUMNS+ix]!=0){
+        //         return true;
+        //     }
+        // }
 
         //-- Bottom Left Corner
         x = p.x*CELL_SIZE + tetro->m_x + 1;
         y = p.y*CELL_SIZE + CELL_SIZE - 1 + tetro->m_y;
-        ix = (int)(x/CELL_SIZE);
-        iy = (int)(y/CELL_SIZE);
-        if ((ix>=0)&&(ix<NB_COLUMNS)&&(iy>=0)&&(iy<NB_ROWS)){
-            if (board[iy*NB_COLUMNS+ix]!=0){
-                return true;
-            }
+        if (hit(x,y)){
+            return true;
         }
+
+        // ix = (int)(x/CELL_SIZE);
+        // iy = (int)(y/CELL_SIZE);
+        // if ((ix>=0)&&(ix<NB_COLUMNS)&&(iy>=0)&&(iy<NB_ROWS)){
+        //     if (board[iy*NB_COLUMNS+ix]!=0){
+        //         return true;
+        //     }
+        // }
 
     }
 
@@ -522,8 +550,6 @@ bool ProcessPlayEvent(SDL_Event &e){
             break;
         }
     }
-
-
 
     return false;
 }
@@ -859,7 +885,6 @@ int main(int argc, char *argv[])
     SDL_Window* window = NULL;
     
     //The surface contained by the window
-    //SDL_Surface* screenSurface = NULL;
 
     SDL_Renderer *renderer=NULL;
 
@@ -898,10 +923,6 @@ int main(int argc, char *argv[])
 
             Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,MIX_DEFAULT_CHANNELS,1024);
             auto tetrisMusic = Mix_LoadMUS("../resources/Tetris.wav");
-            if (tetrisMusic!=NULL){
-                Mix_VolumeMusic(20);
-                Mix_PlayMusic(tetrisMusic,-1);
-            }
 
             auto succesSound = Mix_LoadWAV("../resources/109662__grunz__success.wav");
             if (succesSound!=NULL){
@@ -920,6 +941,11 @@ int main(int argc, char *argv[])
             curMode = GameMode::STAND_BY;
             nextTetromino = new Tetromino(TetrisRandomizer(),(NB_COLUMNS+3)*CELL_SIZE, 10*CELL_SIZE);
 
+            if (tetrisMusic!=NULL){
+                Mix_PlayMusic(tetrisMusic,-1);
+                Mix_VolumeMusic(20);
+            }
+
             Uint32 startTimeV = SDL_GetTicks();
             Uint32 startTimeH = startTimeV;
             Uint32 startTimeR = startTimeV;
@@ -929,7 +955,6 @@ int main(int argc, char *argv[])
 
             //Event handler
             SDL_Event e;
-
 
             //While application is running
             while( !quit )
@@ -955,6 +980,7 @@ int main(int argc, char *argv[])
                     }
 
                     if (quit){
+                        quit = false;
 
                         //-- Check Hight Scores
                         curTetromino->m_type = 0;
@@ -963,12 +989,10 @@ int main(int argc, char *argv[])
                             InitGame();
                             ProcessEvent = &ProcessHightScoresEvent;
                             curMode = GameMode::HIGH_SCORES;
-                            quit = false;
-                        }else{
+                       }else{
                             InitGame();
                             ProcessEvent = &ProcessStandByEvent;
                             curMode = GameMode::STAND_BY;
-                            quit = false;
                         }
 
                     }
@@ -1072,6 +1096,7 @@ int main(int argc, char *argv[])
                             }
 
                         }else{
+
                             int curTime = SDL_GetTicks();
                             int limitElapse = (fFastDown?10:25);
                             if ((curTime-startTimeV)>limitElapse){
