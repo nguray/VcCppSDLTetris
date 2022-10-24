@@ -30,9 +30,5 @@ public:
     int  MaxX();
     int  MaxY();
     int  Column();
-    bool IsOutLeftLimit();
-    bool IsOutRightLimit();
-    bool IsOutBottomLimit();
-    bool HitGround(int *board);
 
 };

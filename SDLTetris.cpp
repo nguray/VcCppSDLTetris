@@ -113,8 +113,89 @@ std::map<int,char>  keyMaps = {
 
 bool        (*ProcessEvent) (SDL_Event &e);
 
+bool        (*isOutLimit) (Tetromino *tetro);
+
 //Globally used font
 TTF_Font* gFont = NULL;
+
+
+bool IsOutLeftLimit(Tetromino *tetro){
+    //-----------------------------------------
+    return (tetro->MinX()*CELL_SIZE + tetro->m_x)<0;
+
+}
+
+bool IsOutRightLimit(Tetromino *tetro){
+    //-----------------------------------------
+    return ((tetro->MaxX() + 1)*CELL_SIZE + tetro->m_x)>(CELL_SIZE*NB_COLUMNS);
+
+}
+
+bool IsAlwaysOutLimit(Tetromino *tetro){
+    //-----------------------------------------
+    return true;
+}
+
+bool IsOutBottomLimit(Tetromino *tetro){
+    //-----------------------------------------
+    return ((tetro->MaxY()+1)*CELL_SIZE + tetro->m_y)>(CELL_SIZE*NB_ROWS);
+}
+
+bool HitGround(Tetromino *tetro, int *board){
+    int x,y;
+    int ix,iy;
+    //-----------------------------------------
+    for (auto p : tetro->m_v){
+
+        //-- Top Left Corner
+        x = p.x*CELL_SIZE + tetro->m_x + 1;
+        y = p.y*CELL_SIZE + tetro->m_y + 1;
+        ix = (int)(x/CELL_SIZE);
+        iy = (int)(y/CELL_SIZE);
+        if ((ix>=0)&&(ix<NB_COLUMNS)&&(iy>=0)&&(iy<NB_ROWS)){
+            if (board[iy*NB_COLUMNS+ix]!=0){
+                return true;
+            }
+        }
+
+        //-- Top Right Corner
+        x = p.x*CELL_SIZE + CELL_SIZE - 1 + tetro->m_x;
+        y = p.y*CELL_SIZE + tetro->m_y + 1;
+        ix = (int)(x/CELL_SIZE);
+        iy = (int)(y/CELL_SIZE);
+        if ((ix>=0)&&(ix<NB_COLUMNS)&&(iy>=0)&&(iy<NB_ROWS)){
+            if (board[iy*NB_COLUMNS+ix]!=0){
+                return true;
+            }
+        }
+
+        //-- Bottom Right Corner
+        x = p.x*CELL_SIZE + CELL_SIZE - 1 + tetro->m_x;
+        y = p.y*CELL_SIZE + CELL_SIZE - 1 + tetro->m_y;
+        ix = (int)(x/CELL_SIZE);
+        iy = (int)(y/CELL_SIZE);
+        if ((ix>=0)&&(ix<NB_COLUMNS)&&(iy>=0)&&(iy<NB_ROWS)){
+            if (board[iy*NB_COLUMNS+ix]!=0){
+                return true;
+            }
+        }
+
+        //-- Bottom Left Corner
+        x = p.x*CELL_SIZE + tetro->m_x + 1;
+        y = p.y*CELL_SIZE + CELL_SIZE - 1 + tetro->m_y;
+        ix = (int)(x/CELL_SIZE);
+        iy = (int)(y/CELL_SIZE);
+        if ((ix>=0)&&(ix<NB_COLUMNS)&&(iy>=0)&&(iy<NB_ROWS)){
+            if (board[iy*NB_COLUMNS+ix]!=0){
+                return true;
+            }
+        }
+
+    }
+
+    return false;
+}
+
 
 int RandomInt(int a, int b) 
 {
@@ -380,28 +461,28 @@ bool ProcessPlayEvent(SDL_Event &e){
             //-- Rotate Tetromino
             if (curTetromino!=NULL){
                 curTetromino->RotateLeft();
-                if (curTetromino->HitGround(board)){
+                if (HitGround(curTetromino, board)){
                     //-- Undo Rotate
                     curTetromino->RotateRight();
-                }else if (curTetromino->IsOutRightLimit()){
+                }else if (IsOutRightLimit(curTetromino)){
                     int backupX = curTetromino->m_x;
                     //-- Move Tetromino inside board
                     do{
                         curTetromino->m_x--;
-                    }while(curTetromino->IsOutRightLimit());
-                    if (curTetromino->HitGround(board)){
+                    }while(IsOutRightLimit(curTetromino));
+                    if (HitGround(curTetromino, board)){
                         //-- Undo Move
                         curTetromino->m_x = backupX;
                         //-- Undo Rotate
                         curTetromino->RotateRight();
                     }
-                }else if (curTetromino->IsOutLeftLimit()){
+                }else if (IsOutLeftLimit(curTetromino)){
                     int backupX = curTetromino->m_x;
                     //-- Move Tetromino inside board
                     do{
                         curTetromino->m_x++;
-                    }while(curTetromino->IsOutLeftLimit());
-                    if (curTetromino->HitGround(board)){
+                    }while(IsOutLeftLimit(curTetromino));
+                    if (HitGround(curTetromino,board)){
                         //-- Undo Move
                         curTetromino->m_x = backupX;
                         //-- Undo Rotate
@@ -415,9 +496,11 @@ bool ProcessPlayEvent(SDL_Event &e){
             break;
         case SDLK_LEFT:
             velocityX = -1;
+            isOutLimit = &IsOutLeftLimit;
             break;
         case SDLK_RIGHT:
             velocityX = 1;
+            isOutLimit = &IsOutRightLimit;
             break;
         }
 
@@ -428,9 +511,11 @@ bool ProcessPlayEvent(SDL_Event &e){
         {
         case SDLK_LEFT:
             velocityX = 0;
+            isOutLimit = &IsAlwaysOutLimit;
             break;
         case SDLK_RIGHT:
             velocityX = 0;
+            isOutLimit = &IsAlwaysOutLimit;
             break;
         case SDLK_DOWN:
             fFastDown = false;
@@ -830,6 +915,8 @@ int main(int argc, char *argv[])
 
             InitGame();
             ProcessEvent = &ProcessStandByEvent;
+            isOutLimit = &IsAlwaysOutLimit;
+
             curMode = GameMode::STAND_BY;
             nextTetromino = new Tetromino(TetrisRandomizer(),(NB_COLUMNS+3)*CELL_SIZE, 10*CELL_SIZE);
 
@@ -913,27 +1000,22 @@ int main(int argc, char *argv[])
                                 for(int i=0;i<4;i++){
                                     int backupX = curTetromino->m_x;
                                     curTetromino->m_x += horizontalMove;
+
                                     if (horizontalMove<0){
-                                        if (curTetromino->IsOutLeftLimit()){
-                                            curTetromino->m_x = backupX;
-                                            horizontalMove = 0;
-                                            break;
-                                        }else if (curTetromino->HitGround(board)){
-                                            curTetromino->m_x = backupX;
-                                            horizontalMove = 0;
-                                            break;
-                                        }
+                                        isOutLimit = &IsOutLeftLimit;
                                     }else if (horizontalMove>0){
-                                        if (curTetromino->IsOutRightLimit()){
-                                            curTetromino->m_x = backupX;
-                                            horizontalMove = 0;
-                                            break;
-                                        }else if (curTetromino->HitGround(board)){
-                                            curTetromino->m_x = backupX;
-                                            horizontalMove = 0;
-                                            break;
-                                        }
+                                        isOutLimit = &IsOutRightLimit;                                    
                                     }
+                                    if (isOutLimit(curTetromino)){
+                                        curTetromino->m_x = backupX;
+                                        horizontalMove = 0;
+                                        break;
+                                    }else if (HitGround(curTetromino, board)){
+                                        curTetromino->m_x = backupX;
+                                        horizontalMove = 0;
+                                        break;
+                                    }
+
                                     if (horizontalMove!=0){
                                         if (horizontalStartColumn!=curTetromino->Column()){
                                             curTetromino->m_x = backupX;
@@ -954,12 +1036,12 @@ int main(int argc, char *argv[])
                                 for (int i=0;i<6;i++){
                                     //-- Move down an check
                                     curTetromino->m_y++;
-                                    if (curTetromino->HitGround(board)){
+                                    if (HitGround(curTetromino,board)){
                                         curTetromino->m_y--;
                                         FreezeCurTetromino();
                                         NewTetromino();
                                         fDrop = false;
-                                    }else if (curTetromino->IsOutBottomLimit()){
+                                    }else if (IsOutBottomLimit(curTetromino)){
                                         curTetromino->m_y--;
                                         FreezeCurTetromino();
                                         NewTetromino();
@@ -967,34 +1049,23 @@ int main(int argc, char *argv[])
                                     }
                                     if (fDrop){
                                         if (velocityX!=0){
-                                            curTime = SDL_GetTicks();
+
                                             if ((curTime-startTimeH)>20){
                                                 int backupX = curTetromino->m_x;
                                                 curTetromino->m_x += velocityX;
-                                                if (velocityX<0){
-                                                    if (curTetromino->IsOutLeftLimit()){
-                                                        curTetromino->m_x = backupX;
-                                                    }else if (curTetromino->HitGround(board)){
-                                                        curTetromino->m_x = backupX;
-                                                    }else{
-                                                        startTimeH = SDL_GetTicks();
-                                                        horizontalMove = velocityX;
-                                                        horizontalStartColumn = curTetromino->Column();
-                                                        break;
-                                                    }
-                                                }else if (velocityX>0){
-                                                    if (curTetromino->IsOutRightLimit()){
-                                                        curTetromino->m_x = backupX;
-                                                    }else if (curTetromino->HitGround(board)){
-                                                        curTetromino->m_x = backupX;
-                                                    }else{
-                                                        startTimeH = SDL_GetTicks();
-                                                        horizontalMove = velocityX;
-                                                        horizontalStartColumn = curTetromino->Column();
-                                                        break;
-                                                    }
+
+                                                if (isOutLimit(curTetromino)){
+                                                    curTetromino->m_x = backupX;
+                                                }else if (HitGround(curTetromino, board)){
+                                                    curTetromino->m_x = backupX;
+                                                }else{
+                                                    startTimeH = curTime;
+                                                    horizontalMove = velocityX;
+                                                    horizontalStartColumn = curTetromino->Column();
+                                                    break;
                                                 }
                                             }
+
                                         }
                                     }
                                 }
@@ -1009,12 +1080,12 @@ int main(int argc, char *argv[])
                                 for (int i=0;i<3;i++){
                                     curTetromino->m_y += 1;
                                     bool fMove =true;
-                                    if (curTetromino->HitGround(board)){
+                                    if (HitGround(curTetromino, board)){
                                         curTetromino->m_y -= 1;
                                         FreezeCurTetromino();
                                         NewTetromino();
                                         fMove = false;
-                                    }else if (curTetromino->IsOutBottomLimit()){
+                                    }else if (IsOutBottomLimit(curTetromino)){
                                         curTetromino->m_y -= 1;
                                         FreezeCurTetromino();
                                         NewTetromino();
@@ -1023,34 +1094,25 @@ int main(int argc, char *argv[])
 
                                     if (fMove){
                                         if (velocityX!=0){
+
                                             curTime = SDL_GetTicks();
+
                                             if ((curTime-startTimeH)>15){
-                                                startTimeH = curTime;
+
                                                 int backupX = curTetromino->m_x;
                                                 curTetromino->m_x += velocityX;
-                                                if (velocityX<0){
-                                                    if (curTetromino->IsOutLeftLimit()){
-                                                        curTetromino->m_x = backupX;
-                                                    }else if (curTetromino->HitGround(board)){
-                                                        curTetromino->m_x = backupX;
-                                                    }else{
-                                                        horizontalMove = velocityX;
-                                                        horizontalStartColumn = curTetromino->Column();
-                                                        break;
-                                                    }
 
-                                                }else if (velocityX>0){
-                                                    if (curTetromino->IsOutRightLimit()){
-                                                        curTetromino->m_x = backupX;
-                                                    }else if (curTetromino->HitGround(board)){
-                                                        curTetromino->m_x = backupX;
-                                                    }else{
-                                                        horizontalMove = velocityX;
-                                                        horizontalStartColumn = curTetromino->Column();
-                                                        break;
-                                                    }
-
+                                                if (isOutLimit(curTetromino)){
+                                                    curTetromino->m_x = backupX;
+                                                }else if (HitGround(curTetromino, board)){
+                                                    curTetromino->m_x = backupX;
+                                                }else{
+                                                    horizontalMove = velocityX;
+                                                    horizontalStartColumn = curTetromino->Column();
+                                                    startTimeH = curTime;
+                                                    break;
                                                 }
+
                                             }
                                         }
                                     }
