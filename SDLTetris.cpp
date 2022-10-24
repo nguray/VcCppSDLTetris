@@ -122,13 +122,11 @@ TTF_Font* gFont = NULL;
 bool IsOutLeftLimit(Tetromino *tetro){
     //-----------------------------------------
     return (tetro->MinX()*CELL_SIZE + tetro->m_x)<0;
-
 }
 
 bool IsOutRightLimit(Tetromino *tetro){
     //-----------------------------------------
     return ((tetro->MaxX() + 1)*CELL_SIZE + tetro->m_x)>(CELL_SIZE*NB_COLUMNS);
-
 }
 
 bool IsAlwaysOutLimit(Tetromino *tetro){
@@ -223,7 +221,6 @@ bool HitGround(Tetromino *tetro, int *board){
 
     return false;
 }
-
 
 int RandomInt(int a, int b) 
 {
