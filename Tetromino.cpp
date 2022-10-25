@@ -186,3 +186,111 @@ int Tetromino::Column()
     return (m_x/CELL_SIZE);
 }
 
+bool Tetromino::IsOutLeftLimit(){
+    //-----------------------------------------
+    return (MinX()*CELL_SIZE + m_x)<0;
+}
+
+bool Tetromino::IsOutRightLimit(){
+    //-----------------------------------------
+    return ((MaxX() + 1)*CELL_SIZE + m_x)>(CELL_SIZE*NB_COLUMNS);
+}
+
+bool Tetromino::IsOutLRLimit(int veloH){
+    //-----------------------------------------
+    if (veloH<0){
+        return IsOutLeftLimit();
+    }else if (veloH>0){
+        return IsOutRightLimit();
+    }
+    return true;
+}
+
+bool Tetromino::IsOutBottomLimit(){
+    //-----------------------------------------
+    return ((MaxY()+1)*CELL_SIZE + m_y)>(CELL_SIZE*NB_ROWS);
+}
+
+bool Tetromino::HitGround( int *board){
+    int x,y;
+    //-----------------------------------------
+
+    auto hit = [board] (int x,int y)
+    {
+        int ix = (int)(x/CELL_SIZE);
+        int iy = (int)(y/CELL_SIZE);
+        if ((ix>=0)&&(ix<NB_COLUMNS)&&(iy>=0)&&(iy<NB_ROWS)){
+            if (board[iy*NB_COLUMNS+ix]!=0){
+                return true;
+            }
+        }
+        return false;
+    };
+
+    for (auto p : m_v){
+
+
+        //-- Top Left Corner
+        x = p.x*CELL_SIZE + m_x + 1;
+        y = p.y*CELL_SIZE + m_y + 1;
+        if (hit(x,y)){
+            return true;
+        }
+
+        // ix = (int)(x/CELL_SIZE);
+        // iy = (int)(y/CELL_SIZE);
+        // if ((ix>=0)&&(ix<NB_COLUMNS)&&(iy>=0)&&(iy<NB_ROWS)){
+        //     if (board[iy*NB_COLUMNS+ix]!=0){
+        //         return true;
+        //     }
+        // }
+
+        //-- Top Right Corner
+        x = p.x*CELL_SIZE + CELL_SIZE - 1 + m_x;
+        y = p.y*CELL_SIZE + m_y + 1;
+        if (hit(x,y)){
+            return true;
+        }
+
+        // ix = (int)(x/CELL_SIZE);
+        // iy = (int)(y/CELL_SIZE);
+        // if ((ix>=0)&&(ix<NB_COLUMNS)&&(iy>=0)&&(iy<NB_ROWS)){
+        //     if (board[iy*NB_COLUMNS+ix]!=0){
+        //         return true;
+        //     }
+        // }
+
+        //-- Bottom Right Corner
+        x = p.x*CELL_SIZE + CELL_SIZE - 1 + m_x;
+        y = p.y*CELL_SIZE + CELL_SIZE - 1 + m_y;
+        if (hit(x,y)){
+            return true;
+        }
+
+        // ix = (int)(x/CELL_SIZE);
+        // iy = (int)(y/CELL_SIZE);
+        // if ((ix>=0)&&(ix<NB_COLUMNS)&&(iy>=0)&&(iy<NB_ROWS)){
+        //     if (board[iy*NB_COLUMNS+ix]!=0){
+        //         return true;
+        //     }
+        // }
+
+        //-- Bottom Left Corner
+        x = p.x*CELL_SIZE + m_x + 1;
+        y = p.y*CELL_SIZE + CELL_SIZE - 1 + m_y;
+        if (hit(x,y)){
+            return true;
+        }
+
+        // ix = (int)(x/CELL_SIZE);
+        // iy = (int)(y/CELL_SIZE);
+        // if ((ix>=0)&&(ix<NB_COLUMNS)&&(iy>=0)&&(iy<NB_ROWS)){
+        //     if (board[iy*NB_COLUMNS+ix]!=0){
+        //         return true;
+        //     }
+        // }
+
+    }
+
+    return false;
+}
