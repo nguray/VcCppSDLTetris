@@ -809,9 +809,9 @@ int main(int argc, char *argv[])
             LoadHighScores();
 
             Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,MIX_DEFAULT_CHANNELS,1024);
-            auto tetrisMusic = Mix_LoadMUS("../resources/Tetris.wav");
+            Mix_Music *tetrisMusic = Mix_LoadMUS("../resources/Tetris.wav");
 
-            auto succesSound = Mix_LoadWAV("../resources/109662__grunz__success.wav");
+            Mix_Chunk *succesSound = Mix_LoadWAV("../resources/109662__grunz__success.wav");
             if (succesSound!=NULL){
                 Mix_VolumeChunk(succesSound,15);
             }
