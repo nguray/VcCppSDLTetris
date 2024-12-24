@@ -21,6 +21,7 @@
 #include <map>
 
 typedef struct HighScore{
+
     std::string name;
     int         score;
 }HighScore;

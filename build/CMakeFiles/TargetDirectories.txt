@@ -1,0 +1,3 @@
+/home/nguray/VcCppProjects/VcCppSDLTetris/build/CMakeFiles/SDLTetris.dir
+/home/nguray/VcCppProjects/VcCppSDLTetris/build/CMakeFiles/edit_cache.dir
+/home/nguray/VcCppProjects/VcCppSDLTetris/build/CMakeFiles/rebuild_cache.dir

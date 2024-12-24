@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/nguray/VcCppProjects/VcCppSDLTetris/build",
+  "command": "/usr/bin/g++ -DSDL2_SHARED -I/usr/include/SDL2 -g -std=gnu++20 -o CMakeFiles/SDLTetris.dir/SDLTetris.cpp.o -c /home/nguray/VcCppProjects/VcCppSDLTetris/SDLTetris.cpp",
+  "file": "/home/nguray/VcCppProjects/VcCppSDLTetris/SDLTetris.cpp"
+},
+{
+  "directory": "/home/nguray/VcCppProjects/VcCppSDLTetris/build",
+  "command": "/usr/bin/g++ -DSDL2_SHARED -I/usr/include/SDL2 -g -std=gnu++20 -o CMakeFiles/SDLTetris.dir/Tetromino.cpp.o -c /home/nguray/VcCppProjects/VcCppSDLTetris/Tetromino.cpp",
+  "file": "/home/nguray/VcCppProjects/VcCppSDLTetris/Tetromino.cpp"
+}
+]

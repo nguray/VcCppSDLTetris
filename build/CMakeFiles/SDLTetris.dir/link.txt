@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/SDLTetris.dir/SDLTetris.cpp.o CMakeFiles/SDLTetris.dir/Tetromino.cpp.o -o SDLTetris  -lSDL2 -lSDL2main -lSDL2_ttf -lSDL2_mixer -lSDL2_image -lfmt 
