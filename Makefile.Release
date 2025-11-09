@@ -21,7 +21,7 @@ INSTALL_DIR     = xcopy /s /q /y /i
 
 PROGRAM = SDLTetris.exe
 
-SOURCES       = SDLTetris.cpp Tetromino.cpp
+SOURCES       = SDLTetris.cpp Tetromino.cpp StandByMode.cpp PlayMode.cpp HighScoresMode.cpp GameOverMode.cpp Game.cpp
 
 OBJ = $(SOURCES:.cpp=.o)
 OBJS_RELEASE = $(addprefix release/,$(OBJ))

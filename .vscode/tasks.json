@@ -3,7 +3,7 @@
       {
         "type": "shell",
         "label": "build debug",
-        "command": "mingw32-make.exe",
+        "command": "make",
         "args": [
           "Makefile",
           "debug"
