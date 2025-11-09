@@ -47,6 +47,7 @@ public:
     int         curScore = 0;
     int         idHighScore = -1;
     int         iHighScoreColor = 0;
+    int         startTimeR = 0;
 
     std::string playerName = "";
 

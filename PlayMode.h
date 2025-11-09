@@ -1,6 +1,6 @@
 #pragma once
 #include "IGameMode.h"
-//#include "Game.h"
+#include "Tetromino.h"
 
 class Game;
 class PlayMode : public IGameMode
@@ -12,6 +12,8 @@ public:
     void Init();
     void Draw();
 
+    bool (Tetromino::*IsOutLimit) ();
+
     bool fDrop;
     bool fFastDown;
     bool fPause;
@@ -21,7 +23,7 @@ public:
     int horizontalStartColumn;
     int startTimeV;
     int startTimeH;
-    int startTimeR;
+    int startTimeE;
 
 
 };

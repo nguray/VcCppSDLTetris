@@ -70,9 +70,11 @@ bool PlayMode::ProcessEvent(SDL_Event &e)
             break;
         case SDLK_LEFT:
             velocityX = -1;
+            IsOutLimit = &Tetromino::IsOutLeftLimit;
             break;
         case SDLK_RIGHT:
             velocityX = 1;
+            IsOutLimit = &Tetromino::IsOutRightLimit;
             break;
         }
 
@@ -109,8 +111,8 @@ void PlayMode::Update()
         Uint32 curTime = SDL_GetTicks();
 
         if (nbCompletedLine>0){
-            if ((curTime-startTimeV)>250){
-                startTimeV = curTime;
+            if ((curTime-startTimeE)>150){
+                startTimeE = curTime;
                 nbCompletedLine--;
                 game->EraseFirstCompledLine();
                 //-- Play sound
@@ -119,7 +121,9 @@ void PlayMode::Update()
                 }
             }
 
-        }else if (horizontalMove!=0){
+        }
+        
+        if (horizontalMove!=0){
 
             if ((curTime-startTimeH)>20){
                 startTimeH = curTime;
@@ -128,7 +132,8 @@ void PlayMode::Update()
                     int backupX = curTetro->m_x;
                     curTetro->m_x += horizontalMove;
 
-                    if (curTetro->IsOutLRLimit(horizontalMove)){
+                    //if (curTetro->IsOutLRLimit(horizontalMove)){
+                    if ((*curTetro.*IsOutLimit)()){
                         curTetro->m_x = backupX;
                         horizontalMove = 0;
                         break;
@@ -176,7 +181,7 @@ void PlayMode::Update()
                                 int backupX = curTetro->m_x;
                                 curTetro->m_x += velocityX;
 
-                                if (curTetro->IsOutLRLimit(velocityX)){
+                                if ((*curTetro.*IsOutLimit)()){
                                     curTetro->m_x = backupX;
                                 }else if (curTetro->HitGround(game->board)){
                                     curTetro->m_x = backupX;
@@ -225,7 +230,7 @@ void PlayMode::Update()
                                 int backupX = curTetro->m_x;
                                 curTetro->m_x += velocityX;
 
-                                if (curTetro->IsOutLRLimit(velocityX)){
+                                if ((*curTetro.*IsOutLimit)()){
                                     curTetro->m_x = backupX;
                                 }else if (curTetro->HitGround( game->board)){
                                     curTetro->m_x = backupX;
@@ -247,11 +252,6 @@ void PlayMode::Update()
 
         }
 
-        //-- Rotate NextTetromino
-        if ((curTime-startTimeR)>500){
-            startTimeR = curTime;
-            game->nextTetromino->RotateRight();
-        }
 
     }
 
@@ -262,7 +262,7 @@ void PlayMode::Init()
 {
     startTimeV = 0;
     startTimeH = 0;
-    startTimeR = 0;
+    startTimeE = 0;
     nbCompletedLine = 0;
     horizontalMove = 0;
     fFastDown = false;

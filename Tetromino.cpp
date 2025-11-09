@@ -1,6 +1,7 @@
 
 #include "Tetromino.h"
 #include "TetrisConst.h"
+#include <iostream>
 
 SDL_Color Tetromino::tetrisColors[8] = {
     {0x00,0x00,0x00,0xFF},
@@ -196,7 +197,7 @@ bool Tetromino::IsOutRightLimit(){
     return ((MaxX() + 1)*CELL_SIZE + m_x)>(CELL_SIZE*NB_COLUMNS);
 }
 
-bool Tetromino::IsOutLRLimit(int veloH){
+bool Tetromino::IsOutLRLimit1(int veloH){
     //-----------------------------------------
     if (veloH<0){
         return IsOutLeftLimit();

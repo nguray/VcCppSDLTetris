@@ -32,7 +32,7 @@ public:
     int  Column();
     bool IsOutLeftLimit();
     bool IsOutRightLimit();
-    bool IsOutLRLimit(int veloH);
+    bool IsOutLRLimit1(int veloH);
     bool IsOutBottomLimit();
     bool HitGround(int *board);
 

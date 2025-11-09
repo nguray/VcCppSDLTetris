@@ -36,7 +36,6 @@ int main(int argc, char *argv[])
     //std::cout << "Current working directory: " << std::filesystem::current_path() << std::endl;
 
     TTF_Init();
-    //Open the font
  
     //Initialize SDL
     if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0 )

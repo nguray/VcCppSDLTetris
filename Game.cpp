@@ -5,7 +5,7 @@
 
 Game::Game(SDL_Window *window)
 {
-
+    //Load font
     gFont = TTF_OpenFont( "../resources/sansation.ttf", 18 );
     if ( gFont == NULL ) {
         printf( "Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError() );
@@ -396,6 +396,14 @@ void Game::Draw()
 
 void Game::Update()
 {
+    if (nextTetromino){
+        int curTime = SDL_GetTicks();
+        //-- Rotate NextTetromino
+        if ((curTime-startTimeR)>500){
+            startTimeR = curTime;
+            nextTetromino->RotateRight();
+        }
+    }
 
     curGameMode->Update();
 
