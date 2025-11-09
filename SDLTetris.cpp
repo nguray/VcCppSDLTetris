@@ -54,13 +54,6 @@ int main(int argc, char *argv[])
         else
         {
 
-
-            //StandByMode *standByMode = new StandByMode();
-            //PlayMode *_playMode = new PlayMode();
-            //highScoresMode = new HighScoresMode();
-            //gameOverMode = new GameOverMode();
-
-
             Game *myGame = new Game(window);
 
             //Main loop flag

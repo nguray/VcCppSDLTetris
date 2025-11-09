@@ -29,11 +29,11 @@ Game::Game(SDL_Window *window)
 
     renderer = SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
 
-    standByMode = new StandByMode(this);
-    playMode = new PlayMode(this);
-    highScoresMode = new HighScoresMode(this);
-    gameOverMode = new GameOverMode(this);
-    curGameMode = standByMode;
+    standByMode     = new StandByMode(this);
+    playMode        = new PlayMode(this);
+    highScoresMode  = new HighScoresMode(this);
+    gameOverMode    = new GameOverMode(this);
+    curGameMode     = standByMode;
 
     InitGame();
 }
@@ -44,7 +44,6 @@ Game::~Game()
         Mix_FreeMusic(tetrisMusic);
     }
 
-    
     if (succesSound){
         Mix_FreeChunk(succesSound);
     }
@@ -56,7 +55,6 @@ Game::~Game()
         SDL_DestroyRenderer(renderer);
     }
 
-
 }
 
 
@@ -67,7 +65,8 @@ int RandomInt(int a, int b)
 	return a + r;
 }
 
-int Game::TetrisRandomizer(){
+int Game::TetrisRandomizer()
+{
     int iSrc;
     int ityp;
     //-----------------------------------------------
@@ -88,19 +87,21 @@ int Game::TetrisRandomizer(){
     return ityp;
 }
 
-void Game::InitGame(){
+void Game::InitGame()
+{
     curScore = 0;
     for (int i=0;i<NB_COLUMNS*NB_ROWS;i++){
         board[i] = 0;
     }
 }
 
-void Game::NewTetromino(){
+void Game::NewTetromino()
+{
 
+    //----------------------------------------------
     if (nextTetromino==NULL){
         nextTetromino = new Tetromino(TetrisRandomizer() ,(NB_COLUMNS+3)*CELL_SIZE, 10*CELL_SIZE);
     }
-
     if (curTetromino!=NULL){
         delete curTetromino;
     }
@@ -113,7 +114,8 @@ void Game::NewTetromino(){
 
 }
 
-int Game::ComputeCompletedLines(){
+int Game::ComputeCompletedLines()
+{
     int nbLines = 0;
     bool fCompled = false;
     //----------------------------------------------
@@ -132,7 +134,8 @@ int Game::ComputeCompletedLines(){
     return nbLines;
 }
 
-int ComputeScore(int nbLines){
+int ComputeScore(int nbLines)
+{
     int score = 0;
     switch (nbLines)
     {
@@ -159,7 +162,8 @@ int ComputeScore(int nbLines){
 
 }
 
-int Game::IsHighScore(int score){
+int Game::IsHighScore(int score)
+{
     //-----------------------------------------------
     for (int i=0;i<10;i++){
         if (score>=highScores[i].score){
@@ -169,7 +173,8 @@ int Game::IsHighScore(int score){
     return -1;
 }
 
-void Game::InsertHightScore(int id,std::string playerName,int playerScore){
+void Game::InsertHightScore(int id,std::string playerName,int playerScore)
+{
     //-----------------------------------------------
     if ((id>=0)&&(id<10)){
         if (id==9){
@@ -185,7 +190,8 @@ void Game::InsertHightScore(int id,std::string playerName,int playerScore){
     }
 }
 
-void Game::SaveHighScores(){
+void Game::SaveHighScores()
+{
 
     std::filebuf fb;
     if (fb.open ("../highscores.txt",std::ios::out)){
@@ -198,7 +204,8 @@ void Game::SaveHighScores(){
 
 }
 
-void Game::LoadHighScores(){
+void Game::LoadHighScores()
+{
     int         i = 0;
     std::string strWord;
     std::filebuf fb;
@@ -225,7 +232,8 @@ void Game::LoadHighScores(){
     }
 }
 
-int Game::FreezeCurTetromino(){
+int Game::FreezeCurTetromino()
+{
     int nbCompletedLine = 0;
     if (curTetromino!=NULL){
         int x,y;
@@ -248,7 +256,8 @@ int Game::FreezeCurTetromino(){
 
 }
 
-void Game::EraseFirstCompledLine(){
+void Game::EraseFirstCompledLine()
+{
     bool fCompled = false;
     //----------------------------------------------
     for (int r=0;r<NB_ROWS;r++){
@@ -274,7 +283,8 @@ void Game::EraseFirstCompledLine(){
 
 }
 
-bool Game::IsGameOver(){
+bool Game::IsGameOver()
+{
     //----------------------------------------------
     for (int c=0;c<NB_COLUMNS;c++){
         if (board[c]!=0){
@@ -284,14 +294,20 @@ bool Game::IsGameOver(){
     return false;
 }
 
-void Game::DrawBoard(SDL_Renderer *renderer){
+void Game::DrawBoard(SDL_Renderer *renderer)
+{
 
     SDL_Color   col;
-    SDL_Rect    rect;
     int         typ;
     int         a;
     int         x,y;
     //----------------------------------------------
+
+    //-- Clear Board's gackground 
+    SDL_Rect rect = {LEFT,TOP,CELL_SIZE*NB_COLUMNS,CELL_SIZE*NB_ROWS};
+    SDL_SetRenderDrawColor(renderer, 10, 10, 100, 255);
+    SDL_RenderFillRect(renderer,&rect);
+
     a = CELL_SIZE - 2;
     for (int r=0;r<NB_ROWS;r++){
         for (int c=0;c<NB_COLUMNS;c++){
@@ -340,8 +356,6 @@ void Game::DrawScore()
 
 }
 
-
-
 void Game::SetStandByMode()
 {
     curGameMode = standByMode;
@@ -369,15 +383,10 @@ void Game::SetGameOverMode()
 void Game::Draw()
 {
 
-    //--
-    SDL_SetRenderDrawColor(renderer, 48, 48, 255, 255);
+    //-- 
+    SDL_SetRenderDrawColor(renderer, 10, 10, 150, 255);
     SDL_RenderClear(renderer);
 
-    //--
-    SDL_Rect rect = {LEFT,TOP,CELL_SIZE*NB_COLUMNS,CELL_SIZE*NB_ROWS};
-    SDL_SetRenderDrawColor(renderer, 10, 10, 100, 255);
-    SDL_RenderFillRect(renderer,&rect);
-    
     DrawBoard(renderer);
 
     curGameMode->Draw();
