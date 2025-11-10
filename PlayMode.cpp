@@ -167,32 +167,32 @@ void PlayMode::Update()
                         nbCompletedLine = game->FreezeCurTetromino();
                         game->NewTetromino();
                         fDrop = false;
+                        break;
                     }else if (curTetro->IsOutBottomLimit()){
                         curTetro->m_y--;
                         nbCompletedLine = game->FreezeCurTetromino();
                         game->NewTetromino();
                         fDrop = false;
+                        break;
                     }
-                    if (fDrop){
-                        if (velocityX!=0){
+                    if (velocityX!=0){
 
-                            if ((curTime-startTimeH)>20){
-                                int backupX = curTetro->m_x;
-                                curTetro->m_x += velocityX;
+                        if ((curTime-startTimeH)>20){
+                            int backupX = curTetro->m_x;
+                            curTetro->m_x += velocityX;
 
-                                if ((*curTetro.*IsOutLimit)()){
-                                    curTetro->m_x = backupX;
-                                }else if (curTetro->HitGround(game->board)){
-                                    curTetro->m_x = backupX;
-                                }else{
-                                    startTimeH = curTime;
-                                    horizontalMove = velocityX;
-                                    horizontalStartColumn = curTetro->Column();
-                                    break;
-                                }
+                            if ((*curTetro.*IsOutLimit)()){
+                                curTetro->m_x = backupX;
+                            }else if (curTetro->HitGround(game->board)){
+                                curTetro->m_x = backupX;
+                            }else{
+                                startTimeH = curTime;
+                                horizontalMove = velocityX;
+                                horizontalStartColumn = curTetro->Column();
+                                break;
                             }
-
                         }
+
                     }
                 }
             }
@@ -206,41 +206,38 @@ void PlayMode::Update()
 
                 for (int i=0;i<4;i++){
                     curTetro->m_y += 1;
-                    bool fMove =true;
                     if (curTetro->HitGround( game->board)){
                         curTetro->m_y -= 1;
                         nbCompletedLine = game->FreezeCurTetromino();
                         game->NewTetromino();
-                        fMove = false;
+                        break;
                     }else if (curTetro->IsOutBottomLimit()){
                         curTetro->m_y -= 1;
                         nbCompletedLine = game->FreezeCurTetromino();
                         game->NewTetromino();
-                        fMove = false;                    
+                        break;                    
                     }
 
-                    if (fMove){
-                        if (velocityX!=0){
+                    if (velocityX!=0){
 
-                            curTime = SDL_GetTicks();
+                        curTime = SDL_GetTicks();
 
-                            if ((curTime-startTimeH)>15){
+                        if ((curTime-startTimeH)>15){
 
-                                int backupX = curTetro->m_x;
-                                curTetro->m_x += velocityX;
+                            int backupX = curTetro->m_x;
+                            curTetro->m_x += velocityX;
 
-                                if ((*curTetro.*IsOutLimit)()){
-                                    curTetro->m_x = backupX;
-                                }else if (curTetro->HitGround( game->board)){
-                                    curTetro->m_x = backupX;
-                                }else{
-                                    horizontalMove = velocityX;
-                                    horizontalStartColumn = curTetro->Column();
-                                    startTimeH = curTime;
-                                    break;
-                                }
-
+                            if ((*curTetro.*IsOutLimit)()){
+                                curTetro->m_x = backupX;
+                            }else if (curTetro->HitGround( game->board)){
+                                curTetro->m_x = backupX;
+                            }else{
+                                horizontalMove = velocityX;
+                                horizontalStartColumn = curTetro->Column();
+                                startTimeH = curTime;
+                                break;
                             }
+
                         }
                     }
                 }
