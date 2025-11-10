@@ -2,9 +2,8 @@
 #include "GameOverMode.h"
 
 
-GameOverMode::GameOverMode(Game *g)
+GameOverMode::GameOverMode(Game *g):IGameMode(g)
 {
-    game = g;
 }
 
 

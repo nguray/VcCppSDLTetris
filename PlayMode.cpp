@@ -3,9 +3,8 @@
 #include "Tetromino.h"
 
 
-PlayMode::PlayMode(Game *g)
+PlayMode::PlayMode(Game *g):IGameMode(g)
 {
-    game = g;
 }
 
 bool PlayMode::ProcessEvent(SDL_Event &e)

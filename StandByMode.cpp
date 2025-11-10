@@ -2,9 +2,9 @@
 #include "StandByMode.h"
 
 
-StandByMode::StandByMode(Game *g)
+StandByMode::StandByMode(Game *g):IGameMode(g)
 {
-    game = g;
+
 }
 
 bool StandByMode::ProcessEvent(SDL_Event &e)

@@ -335,7 +335,7 @@ void Game::DrawScore()
     ss << "SCORE : " << std::setfill('0') << std::setw(6) << curScore;
     std::string strSCore = ss.str();
 
-    auto surfScore = TTF_RenderUTF8_Blended(gFont,strSCore.c_str(), col);
+    auto surfScore = TTF_RenderUTF8_Solid(gFont,strSCore.c_str(), col);
     if (surfScore!=NULL){
 
         SDL_Texture *texScore = SDL_CreateTextureFromSurface( renderer, surfScore);

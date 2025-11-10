@@ -3,6 +3,7 @@
 
 
 HighScoresMode::HighScoresMode(Game *g):
+    IGameMode(g),
     iHighScoreColor(0)
 {
     game = g;
