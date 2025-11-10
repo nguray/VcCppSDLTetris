@@ -127,7 +127,7 @@ void PlayMode::Update()
             if ((curTime-startTimeH)>20){
                 startTimeH = curTime;
 
-                for(int i=0;i<4;i++){
+                for(int i=0;i<5;i++){
                     int backupX = curTetro->m_x;
                     curTetro->m_x += horizontalMove;
 
