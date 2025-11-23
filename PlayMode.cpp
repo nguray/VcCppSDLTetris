@@ -156,7 +156,6 @@ void PlayMode::Update()
                 }
             }
             fRotateTetromino = false;
-
         }else if (fDrop){
             int curTime = SDL_GetTicks();
             if ((curTime-startTimeV)>10){
