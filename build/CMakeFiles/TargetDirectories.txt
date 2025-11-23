@@ -1,3 +1,0 @@
-D:/Cpp/VcCppSDLTetris/build/CMakeFiles/SDLTetris.dir
-D:/Cpp/VcCppSDLTetris/build/CMakeFiles/edit_cache.dir
-D:/Cpp/VcCppSDLTetris/build/CMakeFiles/rebuild_cache.dir
