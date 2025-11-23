@@ -1,8 +1,5 @@
 highscores.txt
 debug/*
 release/*
-build
 build/*
 CMakeCache.txt
-CMakeFiles/
-cmake-build-*/

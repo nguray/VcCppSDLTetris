@@ -31,38 +31,8 @@ bool PlayMode::ProcessEvent(SDL_Event &e)
             fDrop = true;
             break;
         case SDLK_UP:
-            //-- Rotate Tetromino
-            //if (game->curTetromino!=nullptr){
-                curTetro->RotateLeft();
-                if (curTetro->HitGround( game->board)){
-                    //-- Undo Rotate
-                    curTetro->RotateRight();
-                }else if (curTetro->IsOutRightLimit()){
-                    int backupX = curTetro->m_x;
-                    //-- Move Tetromino inside board
-                    do{
-                        curTetro->m_x--;
-                    }while(curTetro->IsOutRightLimit());
-                    if (curTetro->HitGround( game->board)){
-                        //-- Undo Move
-                        curTetro->m_x = backupX;
-                        //-- Undo Rotate
-                        curTetro->RotateRight();
-                    }
-                }else if (curTetro->IsOutLeftLimit()){
-                    int backupX = curTetro->m_x;
-                    //-- Move Tetromino inside board
-                    do{
-                        curTetro->m_x++;
-                    }while(curTetro->IsOutLeftLimit());
-                    if (curTetro->HitGround(game->board)){
-                        //-- Undo Move
-                        curTetro->m_x = backupX;
-                        //-- Undo Rotate
-                        curTetro->RotateRight();
-                    }
-                }
-            //}
+            //-- Request current tetromino rotation
+            fRotateTetromino = true;
             break;
         case SDLK_DOWN:
             fFastDown = true;
@@ -154,6 +124,38 @@ void PlayMode::Update()
                 }
 
             }
+        }else if (fRotateTetromino){
+            //-- Do current tetromino rotation when there no more horizontal move
+            curTetro->RotateLeft();
+            if (curTetro->HitGround( game->board)){
+                //-- Undo Rotate
+                curTetro->RotateRight();
+            }else if (curTetro->IsOutRightLimit()){
+                int backupX = curTetro->m_x;
+                //-- Move Tetromino inside board
+                do{
+                    curTetro->m_x--;
+                }while(curTetro->IsOutRightLimit());
+                if (curTetro->HitGround( game->board)){
+                    //-- Undo Move
+                    curTetro->m_x = backupX;
+                    //-- Undo Rotate
+                    curTetro->RotateRight();
+                }
+            }else if (curTetro->IsOutLeftLimit()){
+                int backupX = curTetro->m_x;
+                //-- Move Tetromino inside board
+                do{
+                    curTetro->m_x++;
+                }while(curTetro->IsOutLeftLimit());
+                if (curTetro->HitGround(game->board)){
+                    //-- Undo Move
+                    curTetro->m_x = backupX;
+                    //-- Undo Rotate
+                    curTetro->RotateRight();
+                }
+            }
+            fRotateTetromino = false;
 
         }else if (fDrop){
             int curTime = SDL_GetTicks();
@@ -264,6 +266,7 @@ void PlayMode::Init()
     fFastDown = false;
     fDrop = false;
     velocityX = 0;
+    fRotateTetromino = false;
 
 }
 

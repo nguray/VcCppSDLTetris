@@ -1,44 +1,44 @@
 [
 {
-  "directory": "D:/VcCppProjects/VcCppSDLTetris/build",
-  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DSDL2_SHARED -D_MSYS @CMakeFiles/SDLTetris.dir/includes_CXX.rsp -g -std=gnu++20 -o CMakeFiles\\SDLTetris.dir\\SDLTetris.cpp.obj -c D:\\VcCppProjects\\VcCppSDLTetris\\SDLTetris.cpp",
-  "file": "D:/VcCppProjects/VcCppSDLTetris/SDLTetris.cpp",
-  "output": "CMakeFiles/SDLTetris.dir/SDLTetris.cpp.obj"
+  "directory": "D:/Cpp/VcCppSDLTetris/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DSDL2_SHARED -D_MSYS -IC:/msys64/mingw64/include/SDL2 -g -std=gnu++20 -o CMakeFiles\\SDLTetris.dir\\SDLTetris.cpp.obj -c D:\\Cpp\\VcCppSDLTetris\\SDLTetris.cpp",
+  "file": "D:/Cpp/VcCppSDLTetris/SDLTetris.cpp",
+  "output": "D:/Cpp/VcCppSDLTetris/build/CMakeFiles/SDLTetris.dir/SDLTetris.cpp.obj"
 },
 {
-  "directory": "D:/VcCppProjects/VcCppSDLTetris/build",
-  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DSDL2_SHARED -D_MSYS @CMakeFiles/SDLTetris.dir/includes_CXX.rsp -g -std=gnu++20 -o CMakeFiles\\SDLTetris.dir\\Tetromino.cpp.obj -c D:\\VcCppProjects\\VcCppSDLTetris\\Tetromino.cpp",
-  "file": "D:/VcCppProjects/VcCppSDLTetris/Tetromino.cpp",
-  "output": "CMakeFiles/SDLTetris.dir/Tetromino.cpp.obj"
+  "directory": "D:/Cpp/VcCppSDLTetris/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DSDL2_SHARED -D_MSYS -IC:/msys64/mingw64/include/SDL2 -g -std=gnu++20 -o CMakeFiles\\SDLTetris.dir\\Tetromino.cpp.obj -c D:\\Cpp\\VcCppSDLTetris\\Tetromino.cpp",
+  "file": "D:/Cpp/VcCppSDLTetris/Tetromino.cpp",
+  "output": "D:/Cpp/VcCppSDLTetris/build/CMakeFiles/SDLTetris.dir/Tetromino.cpp.obj"
 },
 {
-  "directory": "D:/VcCppProjects/VcCppSDLTetris/build",
-  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DSDL2_SHARED -D_MSYS @CMakeFiles/SDLTetris.dir/includes_CXX.rsp -g -std=gnu++20 -o CMakeFiles\\SDLTetris.dir\\StandByMode.cpp.obj -c D:\\VcCppProjects\\VcCppSDLTetris\\StandByMode.cpp",
-  "file": "D:/VcCppProjects/VcCppSDLTetris/StandByMode.cpp",
-  "output": "CMakeFiles/SDLTetris.dir/StandByMode.cpp.obj"
+  "directory": "D:/Cpp/VcCppSDLTetris/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DSDL2_SHARED -D_MSYS -IC:/msys64/mingw64/include/SDL2 -g -std=gnu++20 -o CMakeFiles\\SDLTetris.dir\\StandByMode.cpp.obj -c D:\\Cpp\\VcCppSDLTetris\\StandByMode.cpp",
+  "file": "D:/Cpp/VcCppSDLTetris/StandByMode.cpp",
+  "output": "D:/Cpp/VcCppSDLTetris/build/CMakeFiles/SDLTetris.dir/StandByMode.cpp.obj"
 },
 {
-  "directory": "D:/VcCppProjects/VcCppSDLTetris/build",
-  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DSDL2_SHARED -D_MSYS @CMakeFiles/SDLTetris.dir/includes_CXX.rsp -g -std=gnu++20 -o CMakeFiles\\SDLTetris.dir\\PlayMode.cpp.obj -c D:\\VcCppProjects\\VcCppSDLTetris\\PlayMode.cpp",
-  "file": "D:/VcCppProjects/VcCppSDLTetris/PlayMode.cpp",
-  "output": "CMakeFiles/SDLTetris.dir/PlayMode.cpp.obj"
+  "directory": "D:/Cpp/VcCppSDLTetris/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DSDL2_SHARED -D_MSYS -IC:/msys64/mingw64/include/SDL2 -g -std=gnu++20 -o CMakeFiles\\SDLTetris.dir\\PlayMode.cpp.obj -c D:\\Cpp\\VcCppSDLTetris\\PlayMode.cpp",
+  "file": "D:/Cpp/VcCppSDLTetris/PlayMode.cpp",
+  "output": "D:/Cpp/VcCppSDLTetris/build/CMakeFiles/SDLTetris.dir/PlayMode.cpp.obj"
 },
 {
-  "directory": "D:/VcCppProjects/VcCppSDLTetris/build",
-  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DSDL2_SHARED -D_MSYS @CMakeFiles/SDLTetris.dir/includes_CXX.rsp -g -std=gnu++20 -o CMakeFiles\\SDLTetris.dir\\HighScoresMode.cpp.obj -c D:\\VcCppProjects\\VcCppSDLTetris\\HighScoresMode.cpp",
-  "file": "D:/VcCppProjects/VcCppSDLTetris/HighScoresMode.cpp",
-  "output": "CMakeFiles/SDLTetris.dir/HighScoresMode.cpp.obj"
+  "directory": "D:/Cpp/VcCppSDLTetris/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DSDL2_SHARED -D_MSYS -IC:/msys64/mingw64/include/SDL2 -g -std=gnu++20 -o CMakeFiles\\SDLTetris.dir\\HighScoresMode.cpp.obj -c D:\\Cpp\\VcCppSDLTetris\\HighScoresMode.cpp",
+  "file": "D:/Cpp/VcCppSDLTetris/HighScoresMode.cpp",
+  "output": "D:/Cpp/VcCppSDLTetris/build/CMakeFiles/SDLTetris.dir/HighScoresMode.cpp.obj"
 },
 {
-  "directory": "D:/VcCppProjects/VcCppSDLTetris/build",
-  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DSDL2_SHARED -D_MSYS @CMakeFiles/SDLTetris.dir/includes_CXX.rsp -g -std=gnu++20 -o CMakeFiles\\SDLTetris.dir\\GameOverMode.cpp.obj -c D:\\VcCppProjects\\VcCppSDLTetris\\GameOverMode.cpp",
-  "file": "D:/VcCppProjects/VcCppSDLTetris/GameOverMode.cpp",
-  "output": "CMakeFiles/SDLTetris.dir/GameOverMode.cpp.obj"
+  "directory": "D:/Cpp/VcCppSDLTetris/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DSDL2_SHARED -D_MSYS -IC:/msys64/mingw64/include/SDL2 -g -std=gnu++20 -o CMakeFiles\\SDLTetris.dir\\GameOverMode.cpp.obj -c D:\\Cpp\\VcCppSDLTetris\\GameOverMode.cpp",
+  "file": "D:/Cpp/VcCppSDLTetris/GameOverMode.cpp",
+  "output": "D:/Cpp/VcCppSDLTetris/build/CMakeFiles/SDLTetris.dir/GameOverMode.cpp.obj"
 },
 {
-  "directory": "D:/VcCppProjects/VcCppSDLTetris/build",
-  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DSDL2_SHARED -D_MSYS @CMakeFiles/SDLTetris.dir/includes_CXX.rsp -g -std=gnu++20 -o CMakeFiles\\SDLTetris.dir\\Game.cpp.obj -c D:\\VcCppProjects\\VcCppSDLTetris\\Game.cpp",
-  "file": "D:/VcCppProjects/VcCppSDLTetris/Game.cpp",
-  "output": "CMakeFiles/SDLTetris.dir/Game.cpp.obj"
+  "directory": "D:/Cpp/VcCppSDLTetris/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DSDL2_SHARED -D_MSYS -IC:/msys64/mingw64/include/SDL2 -g -std=gnu++20 -o CMakeFiles\\SDLTetris.dir\\Game.cpp.obj -c D:\\Cpp\\VcCppSDLTetris\\Game.cpp",
+  "file": "D:/Cpp/VcCppSDLTetris/Game.cpp",
+  "output": "D:/Cpp/VcCppSDLTetris/build/CMakeFiles/SDLTetris.dir/Game.cpp.obj"
 }
 ]

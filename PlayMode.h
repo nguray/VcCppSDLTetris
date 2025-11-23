@@ -24,6 +24,7 @@ public:
     int startTimeV;
     int startTimeH;
     int startTimeE;
+    bool fRotateTetromino;
 
 
 };

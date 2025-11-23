@@ -66,7 +66,6 @@ int main(int argc, char *argv[])
             while( !quit )
             {
 
-
                 //Handle events on queue
                 while( SDL_PollEvent( &e ) != 0 )
                 {
