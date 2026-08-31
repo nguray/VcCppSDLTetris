@@ -1,10 +1,25 @@
 {
     "configurations": [
         {
-            "name": "Win32",
+            "name": "windows",
             "includePath": [
                 "${workspaceFolder}/**",
                 "C:/msys64/mingw64/include/SDL2/*"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        },
+        {
+            "name": "linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/include/SDL2/*"
             ],
             "defines": [
                 "_DEBUG",

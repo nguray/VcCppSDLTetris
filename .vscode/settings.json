@@ -71,5 +71,22 @@
         "span": "cpp",
         "text_encoding": "cpp",
         "variant": "cpp"
-    }
+    },
+    "C_Cpp.default.compilerPath": "/usr/bin/g++",
+
+    "[windows]": {
+        "includePath": [
+            "${workspaceFolder}/**",
+            "C:/msys64/mingw64/include/SDL2/*"
+        ],
+        "C_Cpp.default.compilerPath": "C:/msys64/ucrt64/bin/g++.exe"
+    },
+
+    "[linux]": {
+        "includePath": [
+            "${workspaceFolder}/**",
+            "/usr/include/SDL2/*"
+        ],
+        "C_Cpp.default.compilerPath": "/usr/bin/g++"
+    }    
 }
