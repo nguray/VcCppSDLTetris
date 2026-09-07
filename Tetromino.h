@@ -22,6 +22,7 @@ public:
     SDL_Color m_color;
     
     static SDL_Color tetrisColors[8];
+    static array<array<Vector2i,4>,8> tetrisShapes;
 
     void RotateLeft();
     void RotateRight();

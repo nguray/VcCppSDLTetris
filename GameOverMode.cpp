@@ -4,6 +4,7 @@
 
 GameOverMode::GameOverMode(Game *g):IGameMode(g)
 {
+    Init();
 }
 
 

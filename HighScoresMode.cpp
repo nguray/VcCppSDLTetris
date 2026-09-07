@@ -6,7 +6,7 @@ HighScoresMode::HighScoresMode(Game *g):
     IGameMode(g),
     iHighScoreColor(0)
 {
-    game = g;
+    Init();
 }
 
 bool HighScoresMode::ProcessEvent(SDL_Event &e)

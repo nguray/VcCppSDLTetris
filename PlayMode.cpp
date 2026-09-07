@@ -5,6 +5,7 @@
 
 PlayMode::PlayMode(Game *g):IGameMode(g)
 {
+    Init();
 }
 
 bool PlayMode::ProcessEvent(SDL_Event &e)

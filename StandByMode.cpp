@@ -4,7 +4,7 @@
 
 StandByMode::StandByMode(Game *g):IGameMode(g)
 {
-
+    Init();
 }
 
 bool StandByMode::ProcessEvent(SDL_Event &e)
