@@ -3,6 +3,8 @@
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 
+int Game::LinesScore[] = {0,40,100,300,1200};
+
 Game::Game(SDL_Window *window)
 {
     //Load font
@@ -36,6 +38,9 @@ Game::Game(SDL_Window *window)
     curGameMode     = standByMode;
 
     InitGame();
+
+    nextTetromino = new Tetromino(TetrisRandomizer() ,(NB_COLUMNS+3)*CELL_SIZE, 10*CELL_SIZE);
+
 }
 
 Game::~Game()
@@ -134,31 +139,15 @@ int Game::ComputeCompletedLines()
     return nbLines;
 }
 
-int ComputeScore(int nbLines)
+int Game::ComputeScore(int nbLines)
 {
-    int score = 0;
-    switch (nbLines)
-    {
-    case 0:
-        score = 0;
-        break;
-    case 1:
-        score = 40;
-        break;
-    case 2:
-        score = 100;
-        break;
-    case 3:
-        score = 300;
-        break;
-    case 4:
-        score = 1200;
-        break;
-    default:
-        score = 2000;
-        break;
+
+    if (nbLines>3){
+        return 1200;
+    }else if (nbLines>0){
+        return LinesScore[nbLines];
     }
-    return score;
+    return 0;
 
 }
 

@@ -94,4 +94,9 @@ public:
     void Update();
     void CheckHighScore();
 
+private:
+    static int LinesScore[5];
+    int ComputeScore(int nbLines);
+
+
 };

@@ -33,6 +33,9 @@ int main(int argc, char *argv[])
     //The window we'll be rendering to
     SDL_Window* window = NULL;
     
+    //-- Seed the random number generator
+    srand(time(NULL));
+
     //std::cout << "Current working directory: " << std::filesystem::current_path() << std::endl;
 
     TTF_Init();
