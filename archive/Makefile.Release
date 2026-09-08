@@ -1,13 +1,15 @@
 #############################################################################
-# Makefile for building: SDLTetris debug
+# Obsolete use cmake instead
+#
+# Makefile for building: SDLTetris release
 #############################################################################
 
-MAKEFILE      = Makefile.Debug
+MAKEFILE      = Makefile.Release
 
 CC           	= gcc
 CXX          	= g++ 
 LINKER			= g++
-CXXFLAGS        = -std=c++17 -fno-keep-inline-dllexport -g -Wall -W -Wparentheses -Wextra -fexceptions -mthreads
+CXXFLAGS        = -std=c++17 -fno-keep-inline-dllexport -Wall -W -Wparentheses -Wextra -fexceptions -mthreads
 DEL_FILE      	= rm
 DEL_DIR         = rmdir
 MOVE          = move
@@ -24,15 +26,15 @@ PROGRAM = SDLTetris.exe
 SOURCES       = SDLTetris.cpp Tetromino.cpp StandByMode.cpp PlayMode.cpp HighScoresMode.cpp GameOverMode.cpp Game.cpp
 
 OBJ = $(SOURCES:.cpp=.o)
-OBJS_DEBUG = $(addprefix debug/,$(OBJ))
+OBJS_RELEASE = $(addprefix release/,$(OBJ))
 DEPS = $(SOURCES:.cpp=.d)
-DEPS_DEBUG = $(addprefix debug/,$(DEPS))
+DEPS_RELEASE = $(addprefix release/,$(DEPS))
 
 INCLUDE_PATHS = -IC:\msys64\mingw64\include\SDL2
 LIBRARY_PATHS = -LC:\msys64\mingw64\lib
 LINKER_FLAGS  = -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_mixer
 
-DESTDIR        = debug
+DESTDIR        = release
 TARGET         = $(DESTDIR)/SDLTetris.exe
 
 ####### Build rules
@@ -41,8 +43,8 @@ first: all
 
 all: $(DESTDIR)/$(PROGRAM)
 
-$(DESTDIR)/$(PROGRAM) : $(OBJS_DEBUG)
-	$(CXX) $(OBJS_DEBUG) -o $(DESTDIR)/$(PROGRAM) $(LIBRARY_PATHS) $(LINKER_FLAGS)
+$(DESTDIR)/$(PROGRAM) : $(OBJS_RELEASE)
+	$(CXX) $(OBJS_RELEASE) -o $(DESTDIR)/$(PROGRAM) $(LIBRARY_PATHS) $(LINKER_FLAGS)
 
 $(DESTDIR)/%.o: %.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDE_PATHS) -MMD -o $@ -c $<
@@ -50,6 +52,6 @@ $(DESTDIR)/%.o: %.cpp
 clean: FORCE
 	$(DEL_FILE) $(DESTDIR)/$(PROGRAM) $(DESTDIR)/*.o $(DESTDIR)/*.d
 
--include $(DEPS_DEBUG)
+-include $(DEPS_RELEASE)
 
 FORCE:
