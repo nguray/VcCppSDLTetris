@@ -23,10 +23,15 @@ echo "-----------------------------------"
 rm asserts.cpp asserts.h 2>/dev/null
 touch asserts.cpp asserts.h
 
-echo "Generating asserts.cpp and asserts.h from files in '$TARGET_DIR'..."
+echo "Generating from files in '$TARGET_DIR'..."
 
 echo "#pragma once" >> asserts.h
-#echo "#include \"asserts.h\"" >> asserts.cpp
+echo "#include <cstdint>" >> asserts.h
+echo "" >> asserts.h
+
+echo "#include <cstdint>" >> asserts.cpp
+echo "" >> asserts.cpp
+
 
 # Loop through all items in the specified folder
 for item in "$TARGET_DIR"/*; do
@@ -35,10 +40,12 @@ for item in "$TARGET_DIR"/*; do
     if [ -f "$item" ]; then
         # Extract and print just the file name (removing the path)
         basename "$item"
-
-        echo "extern unsigned char ${FOLDER_NAME}_$(basename "$item" | tr '.' '_');" >> asserts.h
-        echo "extern unsigned int ${FOLDER_NAME}_$(basename "$item" | tr '.' '_')_len;" >> asserts.h      
-        xxd -i "$item" >> asserts.cpp
+        echo "extern uint32_t $(basename "$item" | tr '.' '_');" >> asserts.h
+        echo "extern uint32_t $(basename "$item" | tr '.' '_')_len;" >> asserts.h      
+        #xxd -i "$item" >> asserts.cpp
+        python3 res_to_uint32_header.py "$item"
+        cat $(basename "$item" | tr '.' '_').h >> asserts.cpp
+        rm $(basename "$item" | tr '.' '_').h
 
     fi
 done

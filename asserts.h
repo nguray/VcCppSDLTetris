@@ -1,7 +1,9 @@
 #pragma once
-extern unsigned char resources_109662__grunz__success_wav;
-extern unsigned int resources_109662__grunz__success_wav_len;
-extern unsigned char resources_sansation_ttf;
-extern unsigned int resources_sansation_ttf_len;
-extern unsigned char resources_Tetris_wav;
-extern unsigned int resources_Tetris_wav_len;
+#include <cstdint>
+
+extern uint32_t grunz__success_wav;
+extern uint32_t grunz__success_wav_len;
+extern uint32_t sansation_ttf;
+extern uint32_t sansation_ttf_len;
+extern uint32_t Tetris_wav;
+extern uint32_t Tetris_wav_len;
