@@ -86,9 +86,7 @@ void PlayMode::Update()
                 nbCompletedLine--;
                 game->EraseFirstCompledLine();
                 //-- Play sound
-                if (game->succesSound!=NULL){
-                    Mix_PlayChannel(-1, game->succesSound, 0);
-                }
+                game->PlaySuccesSound();
             }
 
         }

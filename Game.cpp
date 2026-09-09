@@ -2,13 +2,16 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
+#include "asserts.h"
 
 int Game::LinesScore[] = {0,40,100,300,1200};
+
 
 Game::Game(SDL_Window *window)
 {
     //Load font
-    gFont = TTF_OpenFont( "../resources/sansation.ttf", 18 );
+    //    gFont = TTF_OpenFont( "../resources/sansation.ttf", 18 );
+    gFont = TTF_OpenFontRW( SDL_RWFromConstMem( &resources_sansation_ttf, resources_sansation_ttf_len ), 1, 18 );
     if ( gFont == NULL ) {
         printf( "Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError() );
         TTF_Quit();
@@ -18,13 +21,15 @@ Game::Game(SDL_Window *window)
     LoadHighScores();
 
     Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,MIX_DEFAULT_CHANNELS,1024);
-    tetrisMusic = Mix_LoadMUS("../resources/Tetris.wav");
+    //   tetrisMusic = Mix_LoadMUS("../resources/Tetris.wav");
+    tetrisMusic = Mix_LoadMUS_RW(SDL_RWFromConstMem( &resources_Tetris_wav, resources_Tetris_wav_len ), 1);
     if (tetrisMusic!=NULL){
         Mix_PlayMusic(tetrisMusic,-1);
         Mix_VolumeMusic(20);
     }
 
-    succesSound = Mix_LoadWAV("../resources/109662__grunz__success.wav");
+    //succesSound = Mix_LoadWAV("../resources/109662__grunz__success.wav");
+    succesSound = Mix_LoadWAV_RW(SDL_RWFromConstMem( &resources_109662__grunz__success_wav, resources_109662__grunz__success_wav_len ), 1);
     if (succesSound!=NULL){
         Mix_VolumeChunk(succesSound,15);
     }
@@ -52,8 +57,11 @@ Game::~Game()
     if (succesSound){
         Mix_FreeChunk(succesSound);
     }
-
     Mix_CloseAudio();
+
+    if (gFont){
+        TTF_CloseFont(gFont);
+    }
 
     //-- Renderer
     if (renderer){
@@ -431,4 +439,11 @@ void Game::CheckHighScore()
         SetStandByMode();
     }
 
+}
+
+void Game::PlaySuccesSound()
+{
+    if (succesSound!=NULL){
+        Mix_PlayChannel(-1,succesSound,0);
+    }
 }

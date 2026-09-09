@@ -93,6 +93,8 @@ public:
     void Draw();
     void Update();
     void CheckHighScore();
+    void PlaySuccesSound();
+
 
 private:
     static int LinesScore[5];
