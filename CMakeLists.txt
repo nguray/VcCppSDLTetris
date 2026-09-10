@@ -17,8 +17,8 @@ set(PROJECT_SOURCES
     GameOverMode.cpp
     Game.h
     Game.cpp
-    asserts.h
-    asserts.cpp
+    resources.h
+    resources.cpp
 
 )
 

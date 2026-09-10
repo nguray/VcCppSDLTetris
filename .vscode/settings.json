@@ -77,15 +77,16 @@
     "[windows]": {
         "includePath": [
             "${workspaceFolder}/**",
-            "C:/msys64/mingw64/include/SDL2/*"
+            "C:\\msys64\\mingw64\\include\\*"
         ],
-        "C_Cpp.default.compilerPath": "C:/msys64/ucrt64/bin/g++.exe"
+        "C_Cpp.default.compilerPath": "C:\\msys64\\ucrt64\\bin\\g++.exe"
     },
 
     "[linux]": {
         "includePath": [
             "${workspaceFolder}/**",
-            "/usr/include/SDL2/*"
+            "/usr/include/SDL2/*",
+            "/usr/include/SDL/*"
         ],
         "C_Cpp.default.compilerPath": "/usr/bin/g++"
     }    

@@ -20,17 +20,20 @@ FOLDER_NAME=$(basename "$TARGET_DIR")
 echo "Folder name: $FOLDER_NAME"
 echo "-----------------------------------"
 
-rm asserts.cpp asserts.h 2>/dev/null
-touch asserts.cpp asserts.h
+DESTINATION_H="$(basename "$TARGET_DIR").h"
+DESTINATION_CPP="$(basename "$TARGET_DIR").cpp"
+
+rm "$DESTINATION_CPP" "$DESTINATION_H" 2>/dev/null
+touch "$DESTINATION_CPP" "$DESTINATION_H"
 
 echo "Generating from files in '$TARGET_DIR'..."
 
-echo "#pragma once" >> asserts.h
-echo "#include <cstdint>" >> asserts.h
-echo "" >> asserts.h
+echo "#pragma once" >> "$DESTINATION_H"
+echo "#include <cstdint>" >> "$DESTINATION_H"
+echo "" >> "$DESTINATION_H"
 
-echo "#include <cstdint>" >> asserts.cpp
-echo "" >> asserts.cpp
+echo "#include <cstdint>" >> "$DESTINATION_CPP"
+echo "" >> "$DESTINATION_CPP"
 
 
 # Loop through all items in the specified folder
@@ -40,11 +43,11 @@ for item in "$TARGET_DIR"/*; do
     if [ -f "$item" ]; then
         # Extract and print just the file name (removing the path)
         basename "$item"
-        echo "extern uint32_t $(basename "$item" | tr '.' '_');" >> asserts.h
-        echo "extern uint32_t $(basename "$item" | tr '.' '_')_len;" >> asserts.h      
-        #xxd -i "$item" >> asserts.cpp
+        echo "extern uint32_t $(basename "$item" | tr '.' '_');" >> "$DESTINATION_H"
+        echo "extern uint32_t $(basename "$item" | tr '.' '_')_len;" >> "$DESTINATION_H"
+        #xxd -i "$item" >> "$DESTINATION_CPP"
         python3 res_to_uint32_header.py "$item"
-        cat $(basename "$item" | tr '.' '_').h >> asserts.cpp
+        cat $(basename "$item" | tr '.' '_').h >> "$DESTINATION_CPP"
         rm $(basename "$item" | tr '.' '_').h
 
     fi

@@ -19,7 +19,10 @@ bool GameOverMode::ProcessEvent(SDL_Event &e)
     {
         switch (e.key.keysym.sym)
         {
-        case SDLK_ESCAPE:
+        case SDLK_s:
+            game->ToogleMusic();
+            break;
+         case SDLK_ESCAPE:
         case SDLK_SPACE:
             //fQuitGame = false;
             game->InitGame();

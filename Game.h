@@ -1,3 +1,4 @@
+
 #pragma once
 #include "IGameMode.h"
 #include "StandByMode.h"
@@ -94,9 +95,10 @@ public:
     void Update();
     void CheckHighScore();
     void PlaySuccesSound();
-
+    void ToogleMusic();
 
 private:
+    bool fMusic = false;
     static int LinesScore[5];
     int ComputeScore(int nbLines);
 

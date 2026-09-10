@@ -1,3 +1,4 @@
+
 #include "Game.h"
 #include "StandByMode.h"
 
@@ -18,6 +19,9 @@ bool StandByMode::ProcessEvent(SDL_Event &e)
     {
         switch (e.key.keysym.sym)
         {
+        case SDLK_s:
+            game->ToogleMusic();
+            break;
         case SDLK_ESCAPE:
             //fQuitGame = true;
             return true;

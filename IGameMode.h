@@ -1,5 +1,13 @@
+
 #pragma once
+
+#if __has_include(<SDL2/SDL.h>)
+#include <SDL2/SDL.h>
+#elif __has_include(<SDL.h>)
 #include <SDL.h>
+#else
+#error "SDL headers not found. Ensure the SDL include path is configured."
+#endif
 
 class Game;
 class IGameMode 

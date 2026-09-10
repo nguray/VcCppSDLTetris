@@ -1,19 +1,20 @@
+
 #include "Game.h"
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 
 int Game::LinesScore[] = {0,40,100,300,1200};
-#include "asserts.h"
+#include "resources.h"
 
 Game::Game(SDL_Window *window)
 {
     //Load font
     //    gFont = TTF_OpenFont( "../resources/sansation.ttf", 18 );
     //gFont = TTF_OpenFontRW( SDL_RWFromConstMem( &resources_sansation_ttf, resources_sansation_ttf_len ), 1, 18 );
-    gFont = TTF_OpenFontRW( SDL_RWFromConstMem( &sansation_ttf, sansation_ttf_len ), 1, 18 );
+    gFont = TTF_OpenFontRW(SDL_RWConstFromMem(&sansation_ttf, sansation_ttf_len), 1, 18);
     if ( gFont == NULL ) {
-        printf( "Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError() );
+        printf( "Failed to load lazy font! SDL_ttf Error:  %s\n", TTF_GetError() );
         TTF_Quit();
     }
     TTF_SetFontStyle(gFont,TTF_STYLE_ITALIC|TTF_STYLE_BOLD);
@@ -21,15 +22,12 @@ Game::Game(SDL_Window *window)
     LoadHighScores();
 
     Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,MIX_DEFAULT_CHANNELS,1024);
-    //   tetrisMusic = Mix_LoadMUS("../resources/Tetris.wav");
-    tetrisMusic = Mix_LoadMUS_RW(SDL_RWFromConstMem( &Tetris_wav, Tetris_wav_len ), 1);
-    if (tetrisMusic!=NULL){
-        Mix_PlayMusic(tetrisMusic,-1);
-        Mix_VolumeMusic(20);
-    }
+    //tetrisMusic = Mix_LoadMUS("../resources/Tetris.mp3");
+    tetrisMusic = Mix_LoadMUS_RW(SDL_RWFromConstMem(&Tetris_mp3, Tetris_mp3_len), 1);
+    ToogleMusic();
 
     //succesSound = Mix_LoadWAV("../resources/109662__grunz__success.wav");
-    succesSound = Mix_LoadWAV_RW(SDL_RWFromConstMem( &grunz__success_wav, grunz__success_wav_len ), 1);
+    succesSound = Mix_LoadWAV_RW(SDL_RWFromConstMem(&grunz__success_wav, grunz__success_wav_len), 1);
     if (succesSound!=NULL){
         Mix_VolumeChunk(succesSound,15);
     }
@@ -443,7 +441,22 @@ void Game::CheckHighScore()
 
 void Game::PlaySuccesSound()
 {
-    if (succesSound!=NULL){
+    if ((fMusic)&&(succesSound!=NULL)){
         Mix_PlayChannel(-1,succesSound,0);
     }
 }
+
+void Game::ToogleMusic()
+{
+    if (fMusic){
+        Mix_HaltMusic();
+        fMusic = false;
+    }else{
+        if (tetrisMusic!=NULL){
+            Mix_PlayMusic(tetrisMusic,-1);
+            Mix_VolumeMusic(25);
+            fMusic = true;
+        }
+    }
+}
+

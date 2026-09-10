@@ -1,3 +1,4 @@
+
 #include "Game.h"
 #include "PlayMode.h"
 #include "Tetromino.h"
@@ -25,7 +26,10 @@ bool PlayMode::ProcessEvent(SDL_Event &e)
     {
         switch (e.key.keysym.sym)
         {
-        case SDLK_ESCAPE:
+        case SDLK_s:
+            game->ToogleMusic();
+            break;
+         case SDLK_ESCAPE:
             game->CheckHighScore();
             return false;
         case SDLK_SPACE:
