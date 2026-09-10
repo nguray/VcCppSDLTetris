@@ -2,6 +2,7 @@
 #include "Tetromino.h"
 #include "TetrisConst.h"
 #include <iostream>
+#include <SDL_render.h>
 
 SDL_Color Tetromino::tetrisColors[8] = {
     {0x00,0x00,0x00,0xFF},

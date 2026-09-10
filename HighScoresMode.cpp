@@ -1,3 +1,11 @@
+/*---------------------------------------------------------------------------*\
+  FILE........: HighScoresMode.cpp
+  AUTHOR......: Raymond NGUYEN THANH
+  DATE CREATED: 20.06.2024
+  DESCRIPTION :
+  HighScoresMode class implementation for Tetris game. 
+  This class handles the high scores state, including event processing and rendering the high scores screen.
+\*---------------------------------------------------------------------------*/
 #include "Game.h"
 #include "HighScoresMode.h"
 

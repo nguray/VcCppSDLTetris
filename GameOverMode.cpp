@@ -1,6 +1,14 @@
+/*---------------------------------------------------------------------------*\
+  FILE........: GameOverMode.cpp
+  AUTHOR......: Raymond NGUYEN THANH
+  DATE CREATED: 20.06.2024
+  DESCRIPTION :
+  GameOverMode class implementation for Tetris game. 
+  This class handles the game over state, including event processing and
+   rendering the game over screen.
+\*---------------------------------------------------------------------------*/
 #include "Game.h"
 #include "GameOverMode.h"
-
 
 GameOverMode::GameOverMode(Game *g):IGameMode(g)
 {

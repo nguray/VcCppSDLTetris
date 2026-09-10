@@ -1,4 +1,12 @@
-
+/*/*---------------------------------------------------------------------------*\
+  FILE........: Game.cpp
+  AUTHOR......: Raymond NGUYEN THANH
+  DATE CREATED: 20.06.2024
+  DESCRIPTION :
+  Game class implementation for Tetris game. 
+  This class manages the overall game state, including initialization,
+  event handling, and rendering.
+\*---------------------------------------------------------------------------*/
 #include "Game.h"
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -12,7 +20,7 @@ Game::Game(SDL_Window *window)
     //Load font
     //    gFont = TTF_OpenFont( "../resources/sansation.ttf", 18 );
     //gFont = TTF_OpenFontRW( SDL_RWFromConstMem( &resources_sansation_ttf, resources_sansation_ttf_len ), 1, 18 );
-    gFont = TTF_OpenFontRW(SDL_RWConstFromMem(&sansation_ttf, sansation_ttf_len), 1, 18);
+    gFont = TTF_OpenFontRW(SDL_RWFromConstMem(&sansation_ttf, sansation_ttf_len), 1, 18);
     if ( gFont == NULL ) {
         printf( "Failed to load lazy font! SDL_ttf Error:  %s\n", TTF_GetError() );
         TTF_Quit();

@@ -1,4 +1,12 @@
-
+/*---------------------------------------------------------------------------*\
+  FILE........: StandByMode.cpp
+  AUTHOR......: Raymond NGUYEN THANH
+  DATE CREATED: 20.06.2024
+  DESCRIPTION :
+  StandByMode class implementation for Tetris game. 
+  This class handles the initial state of the game, 
+  including event processing and rendering the standby screen.
+\*---------------------------------------------------------------------------*/
 #include "Game.h"
 #include "StandByMode.h"
 

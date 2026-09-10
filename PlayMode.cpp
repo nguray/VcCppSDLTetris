@@ -1,4 +1,12 @@
-
+/*---------------------------------------------------------------------------*\
+  FILE........: PlayMode.cpp
+  AUTHOR......: Raymond NGUYEN THANH
+  DATE CREATED: 20.06.2024
+  DESCRIPTION :
+  PlayMode class implementation for Tetris game. 
+  This class handles the gameplay logic, including event processing, updating game state,
+  and rendering the current tetromino on the screen.
+\*---------------------------------------------------------------------------*/
 #include "Game.h"
 #include "PlayMode.h"
 #include "Tetromino.h"
