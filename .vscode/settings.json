@@ -89,5 +89,6 @@
             "/usr/include/SDL/*"
         ],
         "C_Cpp.default.compilerPath": "/usr/bin/g++"
-    }    
+    },
+    "sarif-viewer.connectToGithubCodeScanning": "off"
 }

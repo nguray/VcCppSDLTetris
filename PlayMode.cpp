@@ -34,6 +34,14 @@ bool PlayMode::ProcessEvent(SDL_Event &e)
     {
         switch (e.key.keysym.sym)
         {
+        case SDLK_p:
+            fPause ^= true;
+            if (fPause){
+                printf("Game Resumed\n");
+            }else{
+                printf("Game Paused\n");
+            }
+            break;
         case SDLK_s:
             game->ToogleMusic();
             break;

@@ -16,7 +16,7 @@ public:
 
     bool fDrop;
     bool fFastDown;
-    bool fPause;
+    bool fPause=false;
     int  velocityX;
     int nbCompletedLine;
     int horizontalMove;
