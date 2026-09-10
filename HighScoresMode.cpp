@@ -28,9 +28,6 @@ bool HighScoresMode::ProcessEvent(SDL_Event &e)
     {
         switch (e.key.keysym.sym)
         {
-        case SDLK_s:
-            game->ToogleMusic();
-            break;
          case SDLK_BACKSPACE:
             {
                 int l = game->playerName.length();
