@@ -20,7 +20,6 @@ bool GameOverMode::ProcessEvent(SDL_Event &e)
 {
     if( e.type == SDL_QUIT )
     {
-        //fQuitGame = true;
         return true;
     }
     else if( e.type == SDL_KEYDOWN )

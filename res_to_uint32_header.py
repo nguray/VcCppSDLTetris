@@ -42,8 +42,6 @@ def data_to_uint32_header(wav_path):
     print(f"Successfully generated {buff_name}.h")
 
 # Run it
-#wav_to_uint32_header("sound.wav", "sound_data.h")
-
 if __name__ == "__main__":
     data_path = sys.argv[1]
     data_to_uint32_header(data_path)

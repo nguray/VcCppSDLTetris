@@ -93,7 +93,7 @@ int Game::TetrisRandomizer()
         ityp = tetrisBag[idTetrisBag];
         idTetrisBag++;
     }else{
-        //-- Shuttle
+        //-- Shuffle tetrominos bag
         for (int i=0;i<14;i++){
             iSrc = RandomInt(0, 13);
             ityp = tetrisBag[iSrc];

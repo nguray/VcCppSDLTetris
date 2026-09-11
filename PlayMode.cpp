@@ -27,7 +27,6 @@ bool PlayMode::ProcessEvent(SDL_Event &e)
     
     if( e.type == SDL_QUIT )
     {
-        //fQuitGame = true;
         return true;
     }
     else if( e.type == SDL_KEYDOWN )
@@ -116,7 +115,7 @@ void PlayMode::Update()
             if ((curTime-startTimeH)>20){
                 startTimeH = curTime;
 
-                for(int i=0;i<5;i++){
+                for(int i=0;i<6;i++){
                     int backupX = curTetro->m_x;
                     curTetro->m_x += horizontalMove;
 

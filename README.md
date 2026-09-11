@@ -8,7 +8,7 @@ A classic Tetris game written in C++ using SDL2. This project features state-bas
 
 - **Classic Tetris Mechanics**: Standard tetromino shapes, rotation collision checks, line-clearing logic, and progressive speed.
 - **Embedded Resources**: Audio (MP3) and graphical assets are converted and bundled directly into the source build.
-- **Multiple Game Modes**:
+- **Multiple Screens Modes**:
   - **StandByMode**: Main title/start screen.
   - **PlayMode**: Core Tetris gameplay loop and scoring.
   - **HighScoresMode**: Scoreboard view.
