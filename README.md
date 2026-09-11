@@ -57,7 +57,7 @@ Before building the project, ensure you have the following installed on your sys
 
 1. **Clone the repository**:
    ```bash
-   git clone [https://github.com/your-username/VcCppSDLTetris.git](https://github.com/your-username/VcCppSDLTetris.git)
+   git clone [https://github.com/nguray/VcCppSDLTetris.git](https://github.com/nguray/VcCppSDLTetris.git)
    cd VcCppSDLTetris
 
 2. **Generate build files using CMake**:
@@ -77,11 +77,6 @@ Before building the project, ensure you have the following installed on your sys
      ```bash
      ./build/SDLTetris.exe
      ```
-   - **Windows (Visual Studio / MSVC)**:
-     ```cmd
-     .\build\Release\SDLTetris.exe
-     ```    
-
 
 
 ## Controls
